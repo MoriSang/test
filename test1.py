@@ -11,18 +11,17 @@ import pandas as pd
 user_agent = 'Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/63.0.3239.132 Safari/537.36'
 headers = {'User-Agent': user_agent}
 
-# 匹配模式设置
-pattern = re.compile(
-    '.*?"confirmed":"(.*?)".*?"died":"(.*?)".*?"crued":"(.*?)".*?"confirmedRelative":"(.*?)".*?"curConfirm":"(.*?)".*?"area":"(.*?)".*?',
-    re.M)
-# confirmed 累计确诊 died 死亡 crued 治愈 confirmedRelative 新增确诊 curConfirm 现有确诊
-
 url = 'https://voice.baidu.com/act/newpneumonia/newpneumonia/?from=osari_aladin_banner#tab4'
 requests = request.Request(url, headers=headers)
 response = urlopen(requests, timeout=30)
 # content = response.read().decode('unicode_escape')        # 由于解析网页所有内容非常耗时
 content = open('caselist.txt', 'r', encoding="utf-8").read()  # 因此只提取了核心部分作为匹配内容
 
+# 匹配模式设置
+pattern = re.compile(
+    '.*?"confirmed":"(.*?)".*?"died":"(.*?)".*?"crued":"(.*?)".*?"confirmedRelative":"(.*?)".*?"curConfirm":"(.*?)".*?"area":"(.*?)".*?',
+    re.M)
+# confirmed 累计确诊 died 死亡 crued 治愈 confirmedRelative 新增确诊 curConfirm 现有确诊
 items = re.findall(pattern, content)
 
 data = pd.DataFrame(columns=['疫情地区', '新增', '现有', '累计', '治愈', '死亡'])
