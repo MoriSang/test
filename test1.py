@@ -19,7 +19,7 @@ content = open('caselist.txt', 'r', encoding="utf-8").read()  # 因此只提取�
 
 # 匹配模式设置
 pattern = re.compile(
-    '.*?"confirmed":"(.*?)".*?"died":"(.*?)".*?"crued":"(.*?)".*?"confirmedRelative":"(.*?)".*?"curConfirm":"(.*?)".*?"area":"(.*?)".*?',
+    '.*?"confirmed":"(.*?)".*?"died":"(.*?)".*?"crued":"(.*?)".*?"confirmedRelative":"(.*?)".*?"curConfirm":"(.*?)".*?"icuDisable".*?"area":"(.*?)".*?',
     re.M)
 # confirmed 累计确诊 died 死亡 crued 治愈 confirmedRelative 新增确诊 curConfirm 现有确诊
 items = re.findall(pattern, content)
