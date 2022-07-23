@@ -20,7 +20,7 @@ pattern = re.compile(
 url = 'https://voice.baidu.com/act/newpneumonia/newpneumonia/?from=osari_aladin_banner#tab4'
 requests = request.Request(url, headers=headers)
 response = urlopen(requests, timeout=30)
-# content = response.read().decode('unicode_escape')        # 由于解析网页所有内容非常耗时，
+# content = response.read().decode('unicode_escape')        # 由于解析网页所有内容非常耗时
 content = open('caselist.txt', 'r', encoding="utf-8").read()  # 因此只提取了核心部分作为匹配内容
 
 items = re.findall(pattern, content)
@@ -32,8 +32,8 @@ for i in items:
     data.loc[cnt, '现有'] = i[4]
     data.loc[cnt, '新增'] = i[3]
     data.loc[cnt, '累计'] = i[0]
-    data.loc[cnt, '治愈'] = i[1]
-    data.loc[cnt, '死亡'] = i[2]
+    data.loc[cnt, '治愈'] = i[2]
+    data.loc[cnt, '死亡'] = i[1]
     cnt += 1
 
 print(data)
